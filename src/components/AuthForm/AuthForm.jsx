@@ -26,9 +26,29 @@ const AuthForm = () => {
         {/* use vstack to stack the instgram logo, inputs for email and password vertically */}
         <VStack spacing={4}>
           <Image src="/logo.png" h={24} cursor={"pointer"} alt="Instagram" />
-          <Input placeholder="Email" fontSize={14} type="email" value={inputs.email} onChange={(e) => setInputs({ ...inputs, email: e.target.value })} />
-          <Input placeholder="Password" fontSize={14} type="password" value={inputs.password} onChange={(e) => setInputs({ ...inputs, password: e.target.value })} />
-          {isLogin ? null : <Input placeholder="Confirm Password" fontSize={14} type="password" value={inputs.confirmPassword} onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value })} />}
+          <Input
+            placeholder="Email"
+            fontSize={14}
+            type="email"
+            value={inputs.email}
+            onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
+          />
+          <Input
+            placeholder="Password"
+            fontSize={14}
+            type="password"
+            value={inputs.password}
+            onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
+          />
+          {isLogin ? null : (
+            <Input
+              placeholder="Confirm Password"
+              fontSize={14}
+              type="password"
+              value={inputs.confirmPassword}
+              onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value })}
+            />
+          )}
 
           <Button w={"full"} colorScheme="blue" size={"sm"} fontStyle={14} onClick={handleAuth}>
             {isLogin ? "Log in" : "Sign up"}
