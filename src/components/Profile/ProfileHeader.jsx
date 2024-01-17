@@ -42,7 +42,7 @@ const ProfileHeader = () => {
           </Text>
           <Text fontSize={{ base: "xs", md: "sm" }}>
             <Text as={"span"} fontWeight={"bold"} mr={1}>
-              2013
+              2342
             </Text>
             followers
           </Text>
