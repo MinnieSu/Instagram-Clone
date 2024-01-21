@@ -1,8 +1,15 @@
-import { Avatar, Box, Flex, Tooltip, chakra } from "@chakra-ui/react";
+import { Avatar, Box, Flex, Tooltip, chakra, Button } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
-import { CreatePostLogo, InstagramLogo, InstagramMobileLogo, NotificationsLogo, SearchLogo } from "../../assets/constants";
+import {
+  CreatePostLogo,
+  InstagramLogo,
+  InstagramMobileLogo,
+  NotificationsLogo,
+  SearchLogo,
+} from "../../assets/constants";
 import { AiFillHome } from "react-icons/ai";
 import { BiLogOut } from "react-icons/bi";
+import useLogout from "../../hooks/useLogout";
 // sidebar has one flex holding the icons and one flex holding the texts.
 
 // using Chakra UI's chakra utility function. This allows you to apply Chakra UI styling props to the RouterLink
@@ -14,8 +21,14 @@ const Sidebar = () => {
     { icon: <SearchLogo />, text: "Search" },
     { icon: <NotificationsLogo />, text: "Notification" },
     { icon: <CreatePostLogo />, text: "Create" },
-    { icon: <Avatar size={"sm"} name="Myra Sun" src="profilepic.png" />, text: "Profile", link: "/asaprogrammer" },
+    {
+      icon: <Avatar size={"sm"} name="Myra Sun" src="profilepic.png" />,
+      text: "Profile",
+      link: "/asaprogrammer",
+    },
   ];
+  // call useLogout hook which returns 3 things:
+  const { handleLogout, isLoggingOut } = useLogout();
   return (
     <Box
       height={"100vh"}
@@ -52,7 +65,15 @@ const Sidebar = () => {
           <Flex direction={"column"} gap={5} cursor={"pointer"}>
             {sideBarItems.map((item, index) => {
               return (
-                <Tooltip key={index} hasArrow label={item.text} placement={"right"} ml={1} openDelay={500} display={{ base: "block", md: "none" }}>
+                <Tooltip
+                  key={index}
+                  hasArrow
+                  label={item.text}
+                  placement={"right"}
+                  ml={1}
+                  openDelay={500}
+                  display={{ base: "block", md: "none" }}
+                >
                   <ChakraLink
                     display={"flex"}
                     to={item.link || null}
@@ -74,11 +95,17 @@ const Sidebar = () => {
             })}
           </Flex>
         </Box>
-        <Tooltip hasArrow label={"Logout"} placement={"right"} ml={1} openDelay={500} display={{ base: "block", md: "none" }}>
-          <ChakraLink
-            display={"flex"}
-            to={"/auth"}
-            as={RouterLink}
+        <Tooltip
+          hasArrow
+          label={"Logout"}
+          placement={"right"}
+          ml={1}
+          openDelay={500}
+          display={{ base: "block", md: "none" }}
+        >
+          {/* use state to take us to the authentication instead of using <Link> */}
+          <Flex
+            onClick={handleLogout}
             alignItems={"center"}
             gap={4}
             _hover={{ bg: "whiteAlpha.400" }}
@@ -90,8 +117,15 @@ const Sidebar = () => {
           >
             <BiLogOut size={25}></BiLogOut>
 
-            <Box display={{ base: "none", md: "block" }}>Logout</Box>
-          </ChakraLink>
+            <Button
+              display={{ base: "none", md: "block" }}
+              variant={"ghost"}
+              _hover={{ bg: "transparent" }}
+              isLoading={isLoggingOut}
+            >
+              Logout
+            </Button>
+          </Flex>
         </Tooltip>
       </Flex>
     </Box>

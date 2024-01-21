@@ -2,6 +2,7 @@ import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth, firestore } from "../firebase/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import useShowToast from "./useShowToast";
+import useAuthStore from "../store/authStore";
 
 // an auth hook from React-firebase-hooks: to login a user with email and password,
 // Takes auth as parameter, returns: user if logged in/ undefined if not/ loading if still processing /error
@@ -9,6 +10,8 @@ const useSignUpWithEmailAndPassword = () => {
   const [createUserWithEmailAndPassword, , loading, error] =
     useCreateUserWithEmailAndPassword(auth);
   const showToast = useShowToast();
+  const loginUser = useAuthStore((state) => state.login);
+  const logoutUser = useAuthStore((state) => state.logout);
   const signUp = async (inputs) => {
     console.log(inputs.email);
     if (!inputs.email || !inputs.password || !inputs.fullName || !inputs.username) {
@@ -38,6 +41,8 @@ const useSignUpWithEmailAndPassword = () => {
 
         await setDoc(doc(firestore, "users", newUser.user.uid), userDoc);
         localStorage.setItem("user-info", JSON.stringify(userDoc));
+        // update the state of user with their info when signing up
+        loginUser(userDoc);
       }
     } catch (error) {
       showToast("Error", error.message, "error");
