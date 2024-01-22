@@ -8,12 +8,14 @@ const SuggestedHeader = () => {
   const { isLoggingOut, handleLogout } = useLogout();
   // use authStore to get user info for: displaying username
   const authUser = useAuthStore((state) => state.user);
+  // To avoid errors caused by browser trying to fetch its username and profilepicURL when authUser is null.
+  if (!authUser) return null;
 
   return (
     <Flex justifyContent={"space-between"} alignItems={"center"} w={"full"}>
       <Flex alignItems={"center"} gap={2}>
         <Link to={`${authUser.username}`}>
-          <Avatar src="{authUser.profilePicURL}" size={"lg"} />
+          <Avatar src={authUser.profilePicURL} size={"lg"} />
         </Link>
         <Link to={`${authUser.username}`}>
           <Text fontSize={12} fontWeight={"bold"}>
