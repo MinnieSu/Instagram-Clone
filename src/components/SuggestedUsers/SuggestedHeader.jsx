@@ -1,32 +1,41 @@
-import { Avatar, Flex, Text } from "@chakra-ui/react";
-import { Link as RouterLink } from "react-router-dom";
-import { chakra } from "@chakra-ui/react";
-
-const ChakraLink = chakra(RouterLink);
+import { Avatar, Button, Flex, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import useLogout from "../../hooks/useLogout";
+import useAuthStore from "../../store/authStore";
 
 const SuggestedHeader = () => {
+  // import useLogout hooks to log user out and clear local storage.
+  const { isLoggingOut, handleLogout } = useLogout();
+  // use authStore to get user info for: displaying username
+  const authUser = useAuthStore((state) => state.user);
+
   return (
     <Flex justifyContent={"space-between"} alignItems={"center"} w={"full"}>
-      <ChakraLink as={RouterLink} to={"/asaprogrammer"}>
-        <Flex alignItems={"center"} gap={2}>
-          <Avatar src="/profilepic.png" name="As a Programmer" size={"lg"} />
-
+      <Flex alignItems={"center"} gap={2}>
+        <Link to={`${authUser.username}`}>
+          <Avatar src="{authUser.profilePicURL}" size={"lg"} />
+        </Link>
+        <Link to={`${authUser.username}`}>
           <Text fontSize={12} fontWeight={"bold"}>
-            As a Programmer
+            {authUser.username}
           </Text>
-        </Flex>
-      </ChakraLink>
-      <ChakraLink
-        as={RouterLink}
-        to={"/auth"}
+        </Link>
+      </Flex>
+
+      <Button
+        size={"xs"}
+        background={"transparent"}
+        _hover={{ background: "transparent" }}
         fontSize={14}
         fontWeight={"medium"}
         color={"blue.400"}
         cursor={"pointer"}
         justifyContent={"end"}
+        isLoading={isLoggingOut}
+        onClick={handleLogout}
       >
         Log out
-      </ChakraLink>
+      </Button>
     </Flex>
   );
 };

@@ -4,7 +4,7 @@ import { collection, doc, getDocs, query, setDoc, where } from "firebase/firesto
 import useShowToast from "./useShowToast";
 import useAuthStore from "../store/authStore";
 
-// an auth hook from React-firebase-hooks: to login a user with email and password,
+// an auth hook from React-firebase-hooks: to create a user with email and password,
 // Takes auth as parameter, returns: user if logged in/ undefined if not/ loading if still processing /error
 const useSignUpWithEmailAndPassword = () => {
   const [createUserWithEmailAndPassword, , loading, error] =

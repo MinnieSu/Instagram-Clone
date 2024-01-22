@@ -4,10 +4,15 @@ import AuthPage from "./pages/AuthPage/AuthPage";
 import PageLayout from "./Layouts/PageLayout/PageLayout";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 import TestPage from "./components/TestPage/TestPage";
-import useAuthStore from "./store/authStore";
+// import useAuthStore from "./store/authStore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./firebase/firebase";
 
 function App() {
-  const authUser = useAuthStore((state) => state.user);
+  // check if the user is authenticated from the authStore--> in the background checking in the local storage
+  // const authUser = useAuthStore((state) => state.user);
+  // however, it would be better and safer if we check user authentication from firebase.
+  const [authUser] = useAuthState(auth);
   return (
     <>
       <PageLayout>
