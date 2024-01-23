@@ -20,7 +20,7 @@ function App() {
           {/* if user is logged in, renders the Homepage, other wise renders the Authpage */}
           <Route path="/" element={authUser ? <HomePage /> : <Navigate to="/auth" />} />
           <Route path="/auth" element={!authUser ? <AuthPage /> : <Navigate to="/" />} />
-          <Route path="/asaprogrammer" element={<ProfilePage />} />
+          <Route path="/:username" element={<ProfilePage />} />
           <Route path="/test" element={<TestPage />} />
         </Routes>
       </PageLayout>
