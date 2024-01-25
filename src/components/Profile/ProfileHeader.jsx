@@ -1,10 +1,13 @@
-import { Avatar, AvatarGroup, Button, Flex, Text, VStack } from "@chakra-ui/react";
+import { Avatar, AvatarGroup, Button, Flex, Text, useDisclosure, VStack } from "@chakra-ui/react";
 import useAuthStore from "../../store/authStore";
-import useUserProfileStore from "../../store/useUserProfileStore";
+import useUserProfileStore from "../../store/userProfileStore";
+import EditProfile from "./EditProfile";
 
 const ProfileHeader = () => {
   const { userProfile } = useUserProfileStore();
   const authUser = useAuthStore((state) => state.user);
+  // useDisclosure is a custom hook from chakra, used to help handle common open, close, or toggle scenarios
+  const { isOpen, onOpen, onClose } = useDisclosure();
   // if user is authenticated and viewing own profile, show edit profile button
   const viewingOwnProfileAndAuth = authUser && authUser.username === userProfile.username;
   // if user is authenticated and viewing another user's profile, show edit profile button
@@ -40,6 +43,7 @@ const ProfileHeader = () => {
                 color={"black"}
                 _hover={"whiteAlpha.800"}
                 size={{ base: "xs", md: "sm" }}
+                onClick={onOpen}
               >
                 Edit Profile
               </Button>
@@ -86,6 +90,8 @@ const ProfileHeader = () => {
         </Flex>
         <Text fontSize={"sm"}> {userProfile.bio}</Text>
       </VStack>
+      {/* set EditProfile component visible when edit profile button is clicked, hide it if not clicked */}
+      {isOpen && <EditProfile isOpen={isOpen} onClose={onClose} />}
     </Flex>
   );
 };

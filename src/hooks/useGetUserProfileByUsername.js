@@ -3,7 +3,7 @@
 import { collection, getDocs, query, where } from "@firebase/firestore";
 import { useEffect, useState } from "react";
 import { firestore } from "../firebase/firebase";
-import useUserProfileStore from "../store/useUserProfileStore";
+import useUserProfileStore from "../store/userProfileStore";
 import useShowToast from "./useShowToast";
 
 const useGetUserProfileByUsername = (username) => {
