@@ -44,11 +44,9 @@ const EditProfile = ({ isOpen, onClose }) => {
   const handleEditProfile = async () => {
     // update the profile when user clicks submit, clear the selected file after submission.
     try {
-      console.log("start editing");
       await editProfile(inputs, selectedFile);
-      console.log("editing done");
       setSelectedFile(null);
-      //   onClose();
+      onClose();
     } catch (error) {
       showToast("Error", error.message, "error");
     }

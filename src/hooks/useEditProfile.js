@@ -14,7 +14,7 @@ const useEditProfile = () => {
   const showToast = useShowToast();
   const setUserProfile = useUserProfileStore((state) => state.setUserProfile);
 
-  const editProfile = async ({ inputs, selectedFile }) => {
+  const editProfile = async (inputs, selectedFile) => {
     if (isUpdating || !authUser) return;
     setIsUpdating(true);
 
@@ -27,7 +27,6 @@ const useEditProfile = () => {
       if (selectedFile) {
         // upload user selected file to firebase storage
         await uploadString(storageRef, selectedFile, "data_url");
-        console.log("Uploaded a data_url string!");
         //    get the download URL for user selected file
         URL = await getDownloadURL(ref(storage, `profilePics/${authUser.uid}`));
       }
@@ -44,11 +43,11 @@ const useEditProfile = () => {
       //   update user info in the local storage
       localStorage.setItem("user-info", JSON.stringify(updatedUser));
       //   update authuser state
-      setAuthUser(updatedUser);
+      await setAuthUser(updatedUser);
       //   update userProfile state, so that we have every state in sync
-      setUserProfile(updatedUser);
-
+      await setUserProfile(updatedUser);
       showToast("Success", "Profile updated successfully!", "succcess");
+      console.log("Profile updated successfully!");
     } catch (error) {
       showToast("Error", error.message, "error");
     }
@@ -57,3 +56,12 @@ const useEditProfile = () => {
 };
 
 export default useEditProfile;
+
+// Ensure that the function definition and the function calls match in terms of parameter structure.
+// e.g.in useEditProfile.js hook:
+// const editProfile = async(inputs,selectedFile)=>{}
+// when calling 'editProfile' function in EditProfile.jsx component, it should match the parameter structure
+// await editProfile(inputs,selectedFile);
+// if put "const editProfile = async({inputs,selectedFile})=>{}" and cal the function"await editProfile(inputs,selectedFile)", it will return error: properties of undefined
+// passing an object with 2 properties: const Myfunction= ({a,b})=> {}
+// passing 2 separate parameters : const Myfunction= (a,b)=> {}

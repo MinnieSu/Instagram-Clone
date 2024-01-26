@@ -66,3 +66,14 @@ const ProfileHeaderSkeleton = () => {
     </Flex>
   );
 };
+
+// Profile page logic:
+// if there is a valid user profile, show the profile header; no valid user, show 'UserNotFound' component
+// if the status is loading, we show the 'ProfileHeaderSkeleton' component for loading effect
+
+// Inside 'ProfileHeader', we are fetching user information stored inside a glocal state 'userProfile'
+// When clicking 'edit profile' button, we are opening the modal 'EditProfile', which calls the hook 'useEditProfile' that updating user profile in the background
+// 'useEditProfile': takes the reference for storage and users info in firebase.
+// it checks if user upload their profile pic, if yes upload it to the storage,
+// it updates user info if there is any changes, set in the firestore DB and local storage, update user info in global states 'authUser' and 'userProfile', show a pop up saying sucessfully uploaded.
+// then we use the {isUpdating, editProfile} in 'EditProfile' component
