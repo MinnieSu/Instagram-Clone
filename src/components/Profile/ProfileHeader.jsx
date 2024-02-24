@@ -1,4 +1,5 @@
 import { Avatar, AvatarGroup, Button, Flex, Text, useDisclosure, VStack } from "@chakra-ui/react";
+import UseFollowUser from "../../hooks/UseFollowUser";
 import useAuthStore from "../../store/authStore";
 import useUserProfileStore from "../../store/userProfileStore";
 import EditProfile from "./EditProfile";
@@ -9,6 +10,9 @@ const ProfileHeader = () => {
   // useDisclosure is a custom hook from chakra, used to help handle common open, close, or toggle scenarios
   const { isOpen, onOpen, onClose } = useDisclosure();
   // if user is authenticated and viewing own profile, show edit profile button
+
+  const { isFollowing, isUpdating, handleFollowUser } = UseFollowUser(userProfile?.uid);
+
   const viewingOwnProfileAndAuth = authUser && authUser.username === userProfile.username;
   // if user is authenticated and viewing another user's profile, show edit profile button
   const viewingAnotherUserProfileAndAuth = authUser && authUser.username !== userProfile.username;
@@ -56,8 +60,10 @@ const ProfileHeader = () => {
                 color={"white"}
                 _hover={"blue.600"}
                 size={{ base: "xs", md: "sm" }}
+                isLoading={isUpdating}
+                onClick={handleFollowUser}
               >
-                Follow
+                {isFollowing ? "Unfollow" : "Follow"}
               </Button>
             </Flex>
           )}
