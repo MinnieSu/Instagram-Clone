@@ -10,6 +10,8 @@ const useSearchUser = () => {
   //   search user by username
   const getUserProfile = async (username) => {
     setIsLoading(true);
+    // while searching, no user is present in the search result, user state should be null.
+    setUser(null);
     try {
       //   get all the users with the given username
       const q = query(collection(firestore, "users"), where("username", "==", username));
