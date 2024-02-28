@@ -28,7 +28,6 @@ const Search = () => {
     e.preventDefault();
     getUserProfile(searchRef.current.value);
   };
-  console.log(user);
   return (
     <>
       <Tooltip
@@ -73,7 +72,7 @@ const Search = () => {
               </Flex>
             </form>
             {/* pass the setUser function to update the number of followers for the users appeared in search results */}
-            {user && <SuggestedUser user={user} setUser={setUser}/>}
+            {user && <SuggestedUser user={user} setUser={setUser} />}
           </ModalBody>
         </ModalContent>
       </Modal>
