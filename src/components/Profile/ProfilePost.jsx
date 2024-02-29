@@ -14,18 +14,54 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { AiFillHeart } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { firestore, storage } from "../../firebase/firebase";
+import useShowToast from "../../hooks/useShowToast";
 import useAuthStore from "../../store/authStore";
 import useUserProfileStore from "../../store/userProfileStore";
 import Comment from "../Comment/Comment";
 import PostFooter from "../FeedPosts/PostFooter";
+import { ref, deleteObject } from "firebase/storage";
+import { arrayRemove, deleteDoc, doc, updateDoc } from "@firebase/firestore";
+import usePostStore from "../../store/postStore";
 
 const ProfilePost = ({ post }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const userProfile = useUserProfileStore((state) => state.userProfile);
   const authUser = useAuthStore((state) => state.user);
+  const showToast = useShowToast();
+  const [isDeleting, setIsDeleting] = useState(false);
+  const deletePost = usePostStore((state) => state.deletePost);
+  const deletePostFromProfile = useUserProfileStore((state) => state.deletePost);
+
+  const handleDeletePost = async () => {
+    // get a confirm from user to delete or not
+    // method displays a dialog box with a message, OK and Cancel button, returns true if user clicked"ok", otherwise false
+    if (!window.confirm("Are you sure you want to delete this post? ")) return;
+    if (isDeleting) return;
+
+    try {
+      // delete image from storage, delted the post from posts collection and users collection
+      const imageRef = ref(storage, `posts/${post.id}`);
+      await deleteObject(imageRef);
+      const userRef = doc(firestore, "users", authUser.uid);
+      await deleteDoc(doc(firestore, "posts", post.id));
+      await updateDoc(userRef, { posts: arrayRemove(post.id) });
+
+      // update user interface via postStore
+      deletePost(post.id);
+      deletePostFromProfile(post.id);
+      showToast("Success", "Post deleted successfully!", "success");
+    } catch (error) {
+      showToast("Error", error.message, "error");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return (
     <>
       <GridItem
@@ -114,6 +150,8 @@ const ProfilePost = ({ post }) => {
                       _hover={{ bg: "whiteAlpha.300", color: "red.600" }}
                       borderRadius={4}
                       gap={1}
+                      onClick={handleDeletePost}
+                      isLoading={isDeleting}
                     >
                       <MdDelete size={20} cursor={"pointer"} />
                     </Button>
@@ -124,18 +162,6 @@ const ProfilePost = ({ post }) => {
                 {/* Comments section */}
                 {/* overflowY:"auto" --- adds a scroll bar when content overflows the top and bottom edges */}
                 <VStack w={"full"} alignItems={"start"} maxH={"350px"} overflowY={"auto"}>
-                  <Comment
-                    createdAt="12h ago"
-                    username="Dan Abramov"
-                    profilePic="/avatar1.png"
-                    text="Nice pic!"
-                  />
-                  <Comment
-                    createdAt="3h ago"
-                    username="Ryan Florence"
-                    profilePic="/avatar2.png"
-                    text="Great job guys!"
-                  />
                   <Comment
                     createdAt="1d ago"
                     username="as a programmer"
