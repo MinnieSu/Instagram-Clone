@@ -5,7 +5,17 @@ const usePostStore = create((set) => ({
   posts: [],
   createPost: (post) => set((state) => ({ posts: [post, ...state.posts] })),
   deletePost: (id) => set((state) => ({ posts: state.posts.filter((post) => post.id !== id) })),
-  //  addComment
+  // map throught the posts array, if find the post that matches the give post id, add comment at the first index of array.
+  // otherwise, return post and continue until find the target post.
+  addComment: (postId, comment) =>
+    set((state) => ({
+      posts: state.posts.map((post) => {
+        if (post.id === postId) {
+          return { ...post, comments: [comment, ...post.comments] };
+        }
+        return post;
+      }),
+    })),
 
   // update posts state
   setPosts: (posts) => set({ posts }),

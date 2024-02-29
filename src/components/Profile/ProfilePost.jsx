@@ -160,30 +160,18 @@ const ProfilePost = ({ post }) => {
                 <Divider my={4} bg={"gray.500"} />
 
                 {/* Comments section */}
+
                 {/* overflowY:"auto" --- adds a scroll bar when content overflows the top and bottom edges */}
                 <VStack w={"full"} alignItems={"start"} maxH={"350px"} overflowY={"auto"}>
-                  <Comment
-                    createdAt="1d ago"
-                    username="as a programmer"
-                    profilePic="/profilepic.png"
-                    text="Looking awesome! ✨"
-                  />
-                  <Comment
-                    createdAt="12h ago"
-                    username="Dan Abramov"
-                    profilePic="/avatar1.png"
-                    text="Captivating shot! 👁️✨"
-                  />
-                  <Comment
-                    createdAt="3h ago"
-                    username="Ryan Florence"
-                    profilePic="/avatar2.png"
-                    text="Absolutely Stunning"
-                  />
+                  {/* map and render each comment for the post */}
+                  {post.comments.map((comment) => (
+                    <Comment key={comment.id} comment={comment} />
+                  ))}
                 </VStack>
                 <Divider my={4} bg={"gray.800"} />
                 {/* Import Post Footer */}
-                <PostFooter isProfilePage={true} />
+                {/* pass the post content to the PostFooter component */}
+                <PostFooter isProfilePage={true} post={post} />
               </Flex>
             </Flex>
           </ModalBody>
@@ -194,3 +182,24 @@ const ProfilePost = ({ post }) => {
 };
 
 export default ProfilePost;
+
+{
+  /* <Comment
+createdAt="1d ago"
+username="as a programmer"
+profilePic="/profilepic.png"
+text="Looking awesome! ✨"
+/>
+<Comment
+createdAt="12h ago"
+username="Dan Abramov"
+profilePic="/avatar1.png"
+text="Captivating shot! 👁️✨"
+/>
+<Comment
+createdAt="3h ago"
+username="Ryan Florence"
+profilePic="/avatar2.png"
+text="Absolutely Stunning"
+/> */
+}
