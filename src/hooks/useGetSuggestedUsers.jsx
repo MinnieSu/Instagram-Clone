@@ -6,7 +6,7 @@ import useShowToast from "./useShowToast";
 
 // query in users collection to get suggested users, excluding ourself and the users that we are already follwing, limit to 3 accounts.
 const useGetSuggestedUsers = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [suggestedUsers, setSuggestedUsers] = useState([]);
   const authUser = useAuthStore((state) => state.user);
   const showToast = useShowToast();

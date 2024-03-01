@@ -6,7 +6,7 @@ import useUserProfileStore from "../store/userProfileStore";
 import useShowToast from "./useShowToast";
 
 const useGetUserPosts = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { posts, setPosts } = usePostStore();
   const userProfile = useUserProfileStore((state) => state.userProfile);
   const showToast = useShowToast();
