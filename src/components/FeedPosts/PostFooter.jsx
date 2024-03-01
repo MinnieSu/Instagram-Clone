@@ -1,37 +1,28 @@
 import { Flex, Button, Box, Text, InputGroup, InputRightElement, Input } from "@chakra-ui/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { CommentLogo, NotificationsLogo, UnlikeLogo } from "../../assets/constants";
+import useLikePost from "../../hooks/useLikePost";
 import usePostComment from "../../hooks/usePostComment";
 
 const PostFooter = ({ post, username, isProfilePage }) => {
-  const [liked, setLiked] = useState(false);
-  const [likes, setLikes] = useState(1000);
   const { isCommenting, handlePostComment } = usePostComment();
   const [comment, setComment] = useState("");
+  const commentRef = useRef(null);
+  const { isLiked, likes, handleLikePost } = useLikePost(post);
 
   const handleSubmitComment = async () => {
     await handlePostComment(post.id, comment);
     setComment("");
   };
 
-  const handleLike = () => {
-    if (liked) {
-      setLiked(false);
-      setLikes(likes - 1);
-    } else {
-      setLiked(true);
-      setLikes(likes + 1);
-    }
-  };
-
   return (
     <Box mb={10} mt={"auto"}>
       <Flex alignItems={"center"} gap={4} w={"full"} pt={0} mb={2} mt={4}>
         {/* like & comment icons */}
-        <Box onClick={handleLike} cursor={"pointer"} fontSize={18}>
-          {!liked ? <NotificationsLogo /> : <UnlikeLogo />}
+        <Box onClick={handleLikePost} cursor={"pointer"} fontSize={18}>
+          {!isLiked ? <NotificationsLogo /> : <UnlikeLogo />}
         </Box>
-        <Box cursor={"pointer"} fontSize={18}>
+        <Box cursor={"pointer"} fontSize={18} onClick={() => commentRef.current.focus()}>
           <CommentLogo />
         </Box>
       </Flex>
@@ -64,6 +55,7 @@ const PostFooter = ({ post, username, isProfilePage }) => {
             fontSize={14}
             value={comment}
             onChange={(e) => setComment(e.target.value)}
+            ref={commentRef}
           />
           <InputRightElement>
             <Button
