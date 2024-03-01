@@ -27,6 +27,7 @@ import PostFooter from "../FeedPosts/PostFooter";
 import { ref, deleteObject } from "firebase/storage";
 import { arrayRemove, deleteDoc, doc, updateDoc } from "@firebase/firestore";
 import usePostStore from "../../store/postStore";
+import Caption from "../Comment/Caption";
 
 const ProfilePost = ({ post }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -159,11 +160,13 @@ const ProfilePost = ({ post }) => {
                 </Flex>
                 <Divider my={4} bg={"gray.500"} />
 
-                {/* Comments section */}
-
                 {/* overflowY:"auto" --- adds a scroll bar when content overflows the top and bottom edges */}
                 <VStack w={"full"} alignItems={"start"} maxH={"350px"} overflowY={"auto"}>
-                  {/* map and render each comment for the post */}
+                  {/* CAPTION */}
+                  {post.caption && <Caption post={post} />}
+
+                  {/* COMMENTS */}
+                  {/* map and render each comment of the post */}
                   {post.comments.map((comment) => (
                     <Comment key={comment.id} comment={comment} />
                   ))}
