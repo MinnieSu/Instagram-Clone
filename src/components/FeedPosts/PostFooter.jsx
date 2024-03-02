@@ -1,15 +1,26 @@
-import { Flex, Button, Box, Text, InputGroup, InputRightElement, Input } from "@chakra-ui/react";
+import {
+  Flex,
+  Button,
+  Box,
+  Text,
+  InputGroup,
+  InputRightElement,
+  Input,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { CommentLogo, NotificationsLogo, UnlikeLogo } from "../../assets/constants";
 import useLikePost from "../../hooks/useLikePost";
 import usePostComment from "../../hooks/usePostComment";
 import { timeAgo } from "../../utils/timeAgo";
+import CommentsModal from "../Modals/CommentsModal";
 
 const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
   const { isCommenting, handlePostComment } = usePostComment();
   const [comment, setComment] = useState("");
   const commentRef = useRef(null);
   const { isLiked, likes, handleLikePost } = useLikePost(post);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleSubmitComment = async () => {
     await handlePostComment(post.id, comment);
@@ -48,10 +59,12 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
           </Text>
           {/* counts of comments */}
           {post.comments.length > 0 && (
-            <Text fontSize={"sm"} color={"gray"} cursor={"pointer"}>
+            <Text fontSize={"sm"} color={"gray"} cursor={"pointer"} onClick={onOpen}>
               View all {post.comments.length} comments
             </Text>
           )}
+          {/* Comment Modal only in the Home page */}
+          {isOpen ? <CommentsModal isOpen={isOpen} onClose={onClose} post={post} /> : null}
         </>
       )}
 

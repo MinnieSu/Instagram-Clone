@@ -5,8 +5,8 @@ import { timeAgo } from "../../utils/timeAgo";
 
 const Comment = ({ comment }) => {
   const { userProfile, isLoading } = useGetUserProfileById(comment.createdBy);
-  // console.log(userProfile);
   if (isLoading || !userProfile) return <CommentSkeleton />;
+
 
   return (
     <Flex gap={4}>
