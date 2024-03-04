@@ -53,7 +53,12 @@ const Search = () => {
         </Flex>
       </Tooltip>
 
-      <Modal isOpen={isOpen} onClose={onClose} motionPreset={"slideInLeft"}>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        motionPreset={"slideInLeft"}
+        initialFocusRef={searchRef}
+      >
         <ModalOverlay />
         <ModalContent bg={"black"} border={"solid 1px gray"} maxW={"400px"}>
           <ModalHeader>Search user</ModalHeader>
@@ -62,7 +67,7 @@ const Search = () => {
             <form onSubmit={handleSearchUser}>
               <FormControl>
                 <FormLabel>Username</FormLabel>
-                <Input placeholder="as a programmer" ref={searchRef} />
+                <Input ref={searchRef} />
               </FormControl>
 
               <Flex w={"full"} jestifyContent={"flex-end"}>
