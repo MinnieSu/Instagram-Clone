@@ -7,14 +7,13 @@ const Comment = ({ comment }) => {
   const { userProfile, isLoading } = useGetUserProfileById(comment.createdBy);
   if (isLoading || !userProfile) return <CommentSkeleton />;
 
-
   return (
-    <Flex gap={4}>
+    <Flex gap={4} alignItems={"start"}>
       <Link to={`/${userProfile.username}`}>
         <Avatar src={userProfile.profilePicURL} size={"sm"} />
       </Link>
       <Flex direction={"column"}>
-        <Flex gap={2} alignItems={"center"}>
+        <Flex gap={2} alignItems={"start"}>
           <Link to={`/${userProfile.username}`}>
             <Text fontWeight={"bold"} fontSize={12}>
               {userProfile.username}

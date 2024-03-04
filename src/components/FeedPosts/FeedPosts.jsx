@@ -4,7 +4,6 @@ import FeedPost from "./FeedPost";
 
 const FeedPosts = () => {
   const { isLoading, posts } = useGetFeedPosts();
-  // console.log(posts);
 
   return (
     // if loading, show the loading effects using skeleton component
@@ -25,7 +24,7 @@ const FeedPosts = () => {
       {/* if not loading, show the feedposts */}
       {!isLoading &&
         posts.length > 0 &&
-        posts.map((post) => <FeedPost key={post.id} F post={post} />)}
+        posts.map((post) => <FeedPost key={post.id} post={post} />)}
 
       {!isLoading && posts.length === 0 && (
         <>
@@ -35,14 +34,6 @@ const FeedPosts = () => {
           <Text color={"red.400"}>Add your friends now 🙌 </Text>
         </>
       )}
-      {/* {!isLoading && (
-        <>
-          <FeedPost img="/img1.png" username="GracefulGlamour" avatar="/img1.png" />
-          <FeedPost img="/img2.png" username="AlexAdventures" avatar="/img2.png" />
-          <FeedPost img="/img3.png" username="RachelSunflower" avatar="/img3.png" />
-          <FeedPost img="/img4.png" username="WildWoodMaverick" avatar="/img4.png" />
-        </>
-      )} */}
     </Container>
   );
 };

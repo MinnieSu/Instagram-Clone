@@ -54,7 +54,7 @@ const PostFooter = ({ post, isProfilePage, creatorProfile }) => {
           <Text fontSize={"sm"} fontWeight={700}>
             {creatorProfile?.username}{" "}
             <Text as={"span"} fontWeight={400}>
-              Feeling Awesome for 2024!
+              {post.caption}
             </Text>
           </Text>
           {/* counts of comments */}

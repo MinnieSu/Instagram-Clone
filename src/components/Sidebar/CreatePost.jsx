@@ -22,12 +22,12 @@ import { useRef, useState } from "react";
 import usePreviewImg from "../../hooks/usePreviewImg";
 import useShowToast from "../../hooks/useShowToast";
 import usePostStore from "../../store/postStore";
-// import { useLocation } from "react-router-dom";
 import { addDoc, arrayUnion, collection, doc, updateDoc } from "@firebase/firestore";
 import { firestore, storage } from "../../firebase/firebase";
 import { ref, uploadString, getDownloadURL } from "firebase/storage";
 import useAuthStore from "../../store/authStore";
 import useUserProfileStore from "../../store/userProfileStore";
+import { useLocation } from "react-router-dom";
 
 const CreatePost = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -121,7 +121,8 @@ const CreatePost = () => {
     const authUser = useAuthStore((state) => state.user);
     const createPost = usePostStore((state) => state.createPost);
     const addPost = useUserProfileStore((state) => state.addPost);
-    // const { pathname } = useLocation();
+    const userProfile = useUserProfileStore((state) => state.userProfile);
+    const { pathname } = useLocation();
 
     const handleCreatePost = async () => {
       // when no selectedFile, it throws an error message, otherwise it will create a newPost.
@@ -147,8 +148,12 @@ const CreatePost = () => {
         await updateDoc(postDocRef, { imageURL: downloadURL });
 
         // Call addPost() to increment the number of post, and createPost() to update the post state.
-        createPost({ ...newPost, id: postDocRef.id });
-        addPost({ ...newPost, id: postDocRef.id });
+        // create post ONLY when authUser is in their own profile page.
+        if (userProfile.uid === authUser.uid) createPost({ ...newPost, id: postDocRef.id });
+        // increment post counts ONLY when authUser is in their own profile page, and the pathname is not home page.
+        // when in homepage, no updates on post counts is needed, bc userProfile is null.
+        if (pathname !== "/" && userProfile.uid == authUser.uid)
+          addPost({ ...newPost, id: postDocRef.id });
 
         showToast("Success", "Post created successfully", "success");
       } catch (error) {
