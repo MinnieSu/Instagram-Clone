@@ -1,5 +1,5 @@
 // create a state to store the posts of a user, so that we can display the latest post first.
-import { create } from "https://cdn.skypack.dev/zustand";
+import { create } from "zustand";
 
 const usePostStore = create((set) => ({
   posts: [],

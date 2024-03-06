@@ -1,4 +1,4 @@
-import { create } from "https://cdn.skypack.dev/zustand";
+import { create } from "zustand";
 
 // user is not authenticated when first open the app. create functions to login and logout user.
 // this function calls create function, which calls the setter function when callback. inside the setting function, the state you have and any functions you use to replace the state
