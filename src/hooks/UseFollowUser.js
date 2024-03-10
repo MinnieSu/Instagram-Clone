@@ -5,7 +5,7 @@ import useAuthStore from "../store/authStore";
 import useUserProfileStore from "../store/userProfileStore";
 import useShowToast from "./useShowToast";
 
-const UseFollowUser = (userId) => {
+const useFollowUser = (userId) => {
   // check if the status is loading
   const [isUpdating, setIsUpdating] = useState(false);
   // check if authUser is currently following the user
@@ -75,7 +75,7 @@ const UseFollowUser = (userId) => {
   return { isUpdating, isFollowing, handleFollowUser };
 };
 
-export default UseFollowUser;
+export default useFollowUser;
 
 // Logics:
 // update the [isFollowing] state by checking if current user's following array includes that userId that we want to follow or un follow.

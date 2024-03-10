@@ -1,10 +1,10 @@
 import { Avatar, Box, Button, Flex, VStack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import UseFollowUser from "../../hooks/useFollowUser";
+import useFollowUser from "../../hooks/useFollowUser";
 import useAuthStore from "../../store/authStore";
 
 const SuggestedUser = ({ user, setUser }) => {
-  const { isFollowing, isUpdating, handleFollowUser } = UseFollowUser(user.uid);
+  const { isFollowing, isUpdating, handleFollowUser } = useFollowUser(user.uid);
   const authUser = useAuthStore((state) => state.user);
 
   const onFollowUser = async () => {
