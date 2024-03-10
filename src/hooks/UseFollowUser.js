@@ -5,7 +5,7 @@ import useAuthStore from "../store/authStore";
 import useUserProfileStore from "../store/userProfileStore";
 import useShowToast from "./useShowToast";
 
-const UseFollowUser = (userId) => {
+const useFollowUser = (userId) => {
   // check if the status is loading
   const [isUpdating, setIsUpdating] = useState(false);
   // check if authUser is currently following the user

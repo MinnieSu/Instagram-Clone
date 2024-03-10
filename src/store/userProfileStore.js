@@ -1,22 +1,22 @@
-// create useUserProfileStore to store the user profile that we are checking as a global state,
-// so that this user can be shared to all components with just 1 hook
-import { create } from "zustand";
+// // create useUserProfileStore to store the user profile that we are checking as a global state,
+// // so that this user can be shared to all components with just 1 hook
+// import { create } from "zustand";
 
-const useUserProfileStore = create((set) => ({
-  userProfile: null,
-  setUserProfile: (userProfile) => set({ userProfile }),
-  // this is used to update the number of posts in the profile page.
-  addPost: (post) =>
-    set((state) => ({
-      userProfile: { ...state.userProfile, posts: [post.id, ...state.userProfile.posts] },
-    })),
-  deletePost: (postId) =>
-    set((state) => ({
-      userProfile: {
-        ...state.userProfile,
-        posts: [state.userProfile.posts.filter((id) => id !== postId)],
-      },
-    })),
-}));
+// const useUserProfileStore = create((set) => ({
+//   userProfile: null,
+//   setUserProfile: (userProfile) => set({ userProfile }),
+//   // this is used to update the number of posts in the profile page.
+//   addPost: (post) =>
+//     set((state) => ({
+//       userProfile: { ...state.userProfile, posts: [post.id, ...state.userProfile.posts] },
+//     })),
+//   deletePost: (postId) =>
+//     set((state) => ({
+//       userProfile: {
+//         ...state.userProfile,
+//         posts: [state.userProfile.posts.filter((id) => id !== postId)],
+//       },
+//     })),
+// }));
 
-export default useUserProfileStore;
+// export default useUserProfileStore;
