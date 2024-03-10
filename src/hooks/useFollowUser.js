@@ -75,7 +75,7 @@ const useFollowUser = (userId) => {
   return { isUpdating, isFollowing, handleFollowUser };
 };
 
-export default UseFollowUser;
+export default useFollowUser;
 
 // Logics:
 // update the [isFollowing] state by checking if current user's following array includes that userId that we want to follow or un follow.
