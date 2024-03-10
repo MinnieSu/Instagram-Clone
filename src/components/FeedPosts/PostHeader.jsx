@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Flex, Skeleton, SkeletonCircle } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import useFollowUser from "../../hooks/UseFollowUser";
+import useFollowUser from "../../hooks/useFollowUser";
 import { timeAgo } from "../../utils/timeAgo";
 
 const PostHeader = ({ post, creatorProfile }) => {

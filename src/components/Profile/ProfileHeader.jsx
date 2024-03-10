@@ -1,5 +1,5 @@
 import { Avatar, AvatarGroup, Button, Flex, Text, useDisclosure, VStack } from "@chakra-ui/react";
-import UseFollowUser from "../../hooks/UseFollowUser";
+import UseFollowUser from "../../hooks/useFollowUser";
 import useAuthStore from "../../store/authStore";
 import useUserProfileStore from "../../store/userProfileStore";
 import EditProfile from "./EditProfile";
