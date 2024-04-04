@@ -27,7 +27,7 @@ A reactive Instagram Clone (Frontend + Backend) created with React, Firebase and
   <br/>
   <li><Strong>User Login and Logout</Strong></li>
 
-https://github.com/MinnieSu/Instagram-Clone/assets/123999807/542f3779-3e0f-4591-a468-e54478f82f66
+https://github.com/MinnieSu/Instagram-Clone/assets/123999807/f01fa130-5a2a-4301-aaf1-9f4ec4c7cda8
 
 <br/>
   
@@ -51,6 +51,12 @@ https://github.com/MinnieSu/Instagram-Clone/assets/123999807/1ac0cd65-d866-43ca-
 <li><Strong>Like, Unlike and Comment a Post</Strong></li>
 
 https://github.com/MinnieSu/Instagram-Clone/assets/123999807/7d3db9af-240e-4242-b5a7-8563e984846e
+
+<br/>
+
+<li><Strong>Edit Profile</Strong></li>
+
+https://github.com/MinnieSu/Instagram-Clone/assets/123999807/c4bcbe5d-9c94-480e-bc88-fb6e535711ce
 
 <br/>
    
