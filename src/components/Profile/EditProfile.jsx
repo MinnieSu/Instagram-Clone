@@ -47,6 +47,7 @@ const EditProfile = ({ isOpen, onClose }) => {
       await editProfile(inputs, selectedFile);
       setSelectedFile(null);
       onClose();
+      window.location.reload();
     } catch (error) {
       showToast("Error", error.message, "error");
     }
